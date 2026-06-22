@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Metchro — Part Request</title>
+  <title>Metchro Part Request</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,18 +39,6 @@
     .logo-text span { color: var(--amber); }
     h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 5px; }
     .subtitle { color: var(--steel-300); font-size: 13px; }
-
-    /* Rail */
-    .progress-rail { width: 100%; max-width: 720px; margin-bottom: 28px; }
-    .rail-track { display: flex; align-items: flex-start; }
-    .rail-step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
-    .rail-step:not(:last-child)::after { content: ''; position: absolute; top: 13px; left: 50%; width: 100%; height: 2px; background: var(--steel-600); z-index: 0; }
-    .rail-step.done:not(:last-child)::after { background: var(--amber); }
-    .rail-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--steel-600); background: var(--steel-800); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; color: var(--steel-400); position: relative; z-index: 1; transition: all var(--transition); }
-    .rail-step.done .rail-dot { border-color: var(--amber); background: var(--amber); color: var(--steel-900); }
-    .rail-step.active .rail-dot { border-color: var(--amber); color: var(--amber); box-shadow: 0 0 0 4px var(--amber-dim); }
-    .rail-label { margin-top: 6px; font-size: 9px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel-400); text-align: center; white-space: nowrap; }
-    .rail-step.done .rail-label, .rail-step.active .rail-label { color: var(--amber-light); }
 
     /* Card */
     .card { width: 100%; max-width: 720px; background: var(--steel-800); border: 1px solid var(--steel-600); border-radius: 10px; overflow: hidden; }
@@ -144,7 +132,6 @@
       .card-section { padding: 20px 16px; }
       .submit-area { flex-direction: column; align-items: stretch; text-align: center; }
       .field-row, .field-row.triple { grid-template-columns: 1fr; }
-      .rail-label { font-size: 8px; }
     }
   </style>
 </head>
@@ -165,8 +152,6 @@
       <h1>Part Request</h1>
       <p class="subtitle">Use the dropdowns below to describe the part as precisely as possible. Our team will match it to the Metchro catalogue and reply by email.</p>
     </div>
-
-    <!-- Success -->
     <div v-if="submitted" class="success-card">
       <div class="success-icon">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
@@ -181,26 +166,11 @@
 
     <template v-else>
 
-      <!-- Progress Rail -->
-      <div class="progress-rail">
-        <div class="rail-track">
-          <div v-for="(s, i) in railSteps" :key="i" :class="['rail-step', railState(i)]">
-            <div class="rail-dot">
-              <svg v-if="railState(i)==='done'" width="11" height="11" viewBox="0 0 11 11" fill="none">
-                <path d="M1.5 5.5l3 3 5-5" stroke="#0f1117" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span v-else>{{ i+1 }}</span>
-            </div>
-            <div class="rail-label">{{ s }}</div>
-          </div>
-        </div>
-      </div>
-
       <div class="card">
 
         <!-- 01 Contact -->
         <div class="card-section">
-          <div class="section-label">01 — Contact</div>
+          <div class="section-label">01. Contact</div>
           <div class="field-row">
             <div class="field">
               <label>Customer name <span class="req">*</span></label>
@@ -215,54 +185,54 @@
 
         <!-- 02 Part Number -->
         <div class="card-section">
-          <div class="section-label">02 — TRUX Part Number</div>
+          <div class="section-label">02. TRUX Part Number</div>
           <div class="field-row">
             <div class="field">
               <label>Part number <span class="opt">(if known)</span></label>
               <input type="text" class="mono" v-model="form.partNumber" placeholder="e.g. TFEN-H10" />
             </div>
             <div class="field" style="justify-content:flex-end;">
-              <p class="helper-text">Don't have the number? Use the dropdowns below — the more axes you fill, the more accurate our match will be.</p>
+              <p class="helper-text">If you have the TRUX part number, enter it here. Otherwise leave it blank and the fields below will help us identify the part.</p>
             </div>
           </div>
         </div>
 
         <!-- 03 Part Family + Type (Axis 1 + 2) -->
         <div class="card-section">
-          <div class="section-label">03 — Part Family &amp; Type</div>
+          <div class="section-label">03. Part Family &amp; Type</div>
           <div class="field-row">
             <div class="field">
               <label>Part family <span class="req">*</span></label>
               <select v-model="form.part_family" @change="onFamilyChange" :class="{ filled: form.part_family }">
-                <option value="">— Select family —</option>
-                <option v-for="f in families" :key="f.id" :value="f.id">{{ f.label }} ({{ f.count }})</option>
+                <option value="">Select family...</option>
+                <option v-for="f in families" :key="f.id" :value="f.id">{{ f.label }}</option>
               </select>
             </div>
             <div class="field">
               <label>Part type <span class="req">*</span></label>
               <select v-model="form.part_type" :disabled="!form.part_family" :class="{ filled: form.part_type }">
-                <option value="">— Select type —</option>
+                <option value="">Select type...</option>
                 <option v-for="t in availableTypes" :key="t.id" :value="t.id">{{ t.label }}</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- 04 Brand + Model (Axis 3 + 4) -->
+        <!-- 04 Brand + Model -->
         <div class="card-section">
-          <div class="section-label">04 — Brand &amp; Model</div>
+          <div class="section-label">04. Brand &amp; Model</div>
           <div class="field-row">
             <div class="field">
               <label>Truck brand <span class="req">*</span></label>
               <select v-model="form.brand" @change="onBrandChange" :class="{ filled: form.brand }">
-                <option value="">— Select brand —</option>
-                <option v-for="b in brands" :key="b.id" :value="b.id">{{ b.label }} ({{ b.count }} SKUs)</option>
+                <option value="">Select brand...</option>
+                <option v-for="b in brands" :key="b.id" :value="b.id">{{ b.label }}</option>
               </select>
             </div>
             <div class="field">
-              <label>Truck model(s) <span class="opt">(multi-select)</span></label>
+              <label>Truck model(s) <span class="opt">(optional, multi-select)</span></label>
               <select v-model="form.truck_models_single" :disabled="!form.brand || !availableModels.length" :class="{ filled: form.truck_models.length }" @change="onModelSelect">
-                <option value="">— Select model —</option>
+                <option value="">Select model...</option>
                 <option v-for="m in availableModels" :key="m" :value="m">{{ m }}</option>
               </select>
               <div class="chip-group" style="margin-top: 6px;" v-if="form.truck_models.length">
@@ -274,10 +244,10 @@
 
         <!-- 05 Zone + Position (Axis 5 + 6) -->
         <div class="card-section">
-          <div class="section-label">05 — Zone &amp; Position</div>
+          <div class="section-label">05. Zone &amp; Position</div>
           <div class="field-row">
             <div class="field">
-              <label>Truck zone <span class="opt">(multi-select)</span></label>
+              <label>Truck zone <span class="req">*</span> <span class="opt">(multi-select)</span></label>
               <div class="chip-group">
                 <button v-for="z in zones" :key="z.id" type="button"
                   :class="['chip', form.truck_zones.includes(z.id) ? 'selected' : '']"
@@ -287,7 +257,7 @@
               </div>
             </div>
             <div class="field">
-              <label>Position <span class="opt">(multi-select)</span></label>
+              <label>Position <span class="req">*</span> <span class="opt">(multi-select)</span></label>
               <div class="chip-group">
                 <button v-for="p in positions" :key="p.id" type="button"
                   :class="['chip', form.positions.includes(p.id) ? 'selected' : '']"
@@ -299,13 +269,13 @@
           </div>
         </div>
 
-        <!-- 06 Finish + Options + Configuration (Axis 7 + 8) -->
+        <!-- 06 Finish + Options + Configuration -->
         <div class="card-section">
-          <div class="section-label">06 — Finish, Lighting &amp; Configuration</div>
+          <div class="section-label">06. Finish, Lighting &amp; Configuration</div>
 
           <div class="field-row" style="margin-bottom:16px;">
             <div class="field">
-              <label>Finish</label>
+              <label>Finish <span class="req">*</span></label>
               <div class="chip-group">
                 <button v-for="f in finishes" :key="f.id" type="button"
                   :class="['chip', form.finish.includes(f.id) ? 'selected' : '']"
@@ -327,7 +297,7 @@
           </div>
 
           <div class="field">
-            <label>Configuration <span class="opt">(select all that apply)</span></label>
+            <label>Configuration <span class="req">*</span> <span class="opt">(select all that apply)</span></label>
             <div class="chip-group">
               <button v-for="c in configurations" :key="c.id" type="button"
                 :class="['chip', form.configuration.includes(c.id) ? 'selected' : '']"
@@ -337,7 +307,7 @@
             </div>
           </div>
 
-          <!-- Cab style options — only show if relevant family selected -->
+          <!-- Cab style options . only show if relevant family selected -->
           <div class="field" style="margin-top:14px;" v-if="cabStyleRelevant">
             <label>Cab style <span class="opt">(if applicable)</span></label>
             <div class="chip-group">
@@ -350,9 +320,9 @@
           </div>
         </div>
 
-        <!-- 07 Dimensions (Axis 9) — shown only when family is selected -->
+        <!-- 07 Dimensions (Axis 9) . shown only when family is selected -->
         <div class="card-section" v-if="relevantDimensions.length">
-          <div class="section-label">07 — Dimensions <span style="color:var(--steel-400); font-size:9px; text-transform:none; letter-spacing:0; font-weight:400; margin-left:4px;">(optional)</span></div>
+          <div class="section-label">07. Dimensions <span style="color:var(--steel-400); font-size:9px; text-transform:none; letter-spacing:0; font-weight:400; margin-left:4px;">(optional)</span></div>
           <div class="dim-grid">
             <div class="dim-field" v-for="d in relevantDimensions" :key="d.key">
               <label>{{ d.label }}</label>
@@ -376,16 +346,16 @@
             <span v-else class="spec-empty">Fill in the axes above to assemble the part spec</span>
           </div>
           <div v-if="searchQuery" style="margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--steel-400);">
-            <span style="color:var(--steel-500);">search_query →</span> <span style="color:var(--amber-light);">{{ searchQuery }}</span>
+            <span style="color:var(--steel-500);">search_query:</span> <span style="color:var(--amber-light);">{{ searchQuery }}</span>
           </div>
         </div>
 
         <!-- 08 Notes -->
         <div class="card-section">
-          <div class="section-label">08 — Additional Notes</div>
+          <div class="section-label">08. Additional Notes</div>
           <div class="field">
             <label>Extra details <span class="opt">(optional)</span></label>
-            <textarea v-model="form.notes" placeholder="Any other detail that helps identify the part — dimensions not listed above, unusual mount, specific year, etc."></textarea>
+            <textarea v-model="form.notes" placeholder="Any other detail that helps identify the part. Dimensions not listed above, unusual mount, specific year, etc."></textarea>
           </div>
         </div>
 
@@ -395,7 +365,7 @@
         <div class="submit-area">
           <p class="submit-note">Our team reviews every request and responds within 1 business day.</p>
           <div v-if="sending" class="sending"><div class="spinner"></div>Sending…</div>
-          <button v-else class="btn-submit" @click="submitForm" :disabled="!canSubmit">Send Request →</button>
+          <button v-else class="btn-submit" @click="submitForm" :disabled="!canSubmit">Send Request</button>
         </div>
 
       </div>
@@ -410,7 +380,7 @@ const { createApp, ref, computed, reactive, watch } = Vue;
 createApp({
   setup() {
 
-    // ── AXIS 1 — Part families ─────────────────────────────────────────
+    // ── AXIS 1 . Part families ─────────────────────────────────────────
     const families = [
       { id: 'body_panels',      label: 'Body & Panels',         count: '5,064' },
       { id: 'visors_deflect',   label: 'Deflectors & Visors',   count: '1,867' },
@@ -422,9 +392,10 @@ createApp({
       { id: 'mud_flaps',        label: 'Mud Flaps',             count: '270'   },
       { id: 'chassis_coupling', label: 'Chassis & Coupling',    count: '282'   },
       { id: 'accessories',      label: 'Accessories & Kits',    count: '316'   },
+      { id: 'other',            label: 'Other / Not sure',      count: ''       },
     ];
 
-    // ── AXIS 2 — Part types by family ─────────────────────────────────
+    // ── AXIS 2 . Part types by family ─────────────────────────────────
     const typesByFamily = {
       body_panels: [
         { id: 'cab_panel',        label: 'Cab panel' },
@@ -501,10 +472,21 @@ createApp({
         { id: 'grommet',    label: 'Grommet' },
         { id: 'wire_cover', label: 'Wire cover kit' },
         { id: 'lug_nut',    label: 'Lug nut cover' },
+        { id: 'other',      label: 'Other / Not sure' },
+      ],
+      other: [
+        { id: 'other',      label: 'Other / Not sure' },
       ],
     };
 
-    // ── AXIS 3 — Brands ───────────────────────────────────────────────
+    // Inject "Other" into every family's part_type list
+    Object.keys(typesByFamily).forEach(k => {
+      if (k !== 'other' && !typesByFamily[k].some(t => t.id === 'other')) {
+        typesByFamily[k].push({ id: 'other', label: 'Other / Not sure' });
+      }
+    });
+
+    // ── AXIS 3 . Brands ───────────────────────────────────────────────
     const brands = [
       { id: 'peterbilt',     label: 'Peterbilt',       count: '4,022', digit: '1' },
       { id: 'universal',     label: 'Universal',       count: '2,574', digit: '9' },
@@ -519,9 +501,10 @@ createApp({
       { id: 'isuzu',         label: 'Isuzu',           count: '27',    digit: 'U' },
       { id: 'ford',          label: 'Ford',            count: '21',    digit: 'F' },
       { id: 'autocar',       label: 'Autocar',         count: '17',    digit: 'A' },
+      { id: 'other',         label: 'Other / Not sure', count: '',     digit: '?' },
     ];
 
-    // ── AXIS 4 — Models by brand ──────────────────────────────────────
+    // ── AXIS 4 . Models by brand ──────────────────────────────────────
     const modelsByBrand = {
       peterbilt:    ['389','388','567','379','579','378','386','367','365','W990','587','Ultracab','Ultraloft'],
       kenworth:     ['T800','W900','W900L','T680','W900B','T880','T660','T370','T300','W990','T270','T600','T170','T470','T440','T400','T880S','T800W','T2000'],
@@ -536,9 +519,17 @@ createApp({
       ford:         ['F650','F750'],
       autocar:      ['DC Series'],
       universal:    [],
+      other:        [],
     };
 
-    // ── AXIS 5 — Zones ────────────────────────────────────────────────
+    // Inject "Other" model option to each brand's model list
+    Object.keys(modelsByBrand).forEach(b => {
+      if (modelsByBrand[b].length && !modelsByBrand[b].includes('Other / Not sure')) {
+        modelsByBrand[b].push('Other / Not sure');
+      }
+    });
+
+    // ── AXIS 5 . Zones ────────────────────────────────────────────────
     const zones = [
       { id: 'bumper_zone',          label: 'Bumper' },
       { id: 'hood_fender_zone',     label: 'Hood / Fender' },
@@ -548,9 +539,10 @@ createApp({
       { id: 'rear_zone',            label: 'Rear' },
       { id: 'firewall',             label: 'Firewall' },
       { id: 'door',                 label: 'Door' },
+      { id: 'other',                label: 'Other / Not sure' },
     ];
 
-    // ── AXIS 6 — Positions ────────────────────────────────────────────
+    // AXIS 6. Positions
     const positions = [
       { id: 'side',       label: 'Side' },
       { id: 'extension',  label: 'Extension' },
@@ -560,9 +552,10 @@ createApp({
       { id: 'lower',      label: 'Lower' },
       { id: 'center',     label: 'Center' },
       { id: 'inset',      label: 'Inset' },
+      { id: 'other',      label: 'Other / Not sure' },
     ];
 
-    // ── AXIS 7 — Configuration ────────────────────────────────────────
+    // AXIS 7. Configuration
     const configurations = [
       { id: 'kit',         label: 'Kit / Set' },
       { id: 'extension',   label: 'Extension' },
@@ -572,14 +565,16 @@ createApp({
       { id: 'oem',         label: 'OEM style' },
       { id: 'hd',          label: 'Heavy duty' },
       { id: 'replacement', label: 'Replacement' },
+      { id: 'other',       label: 'Other / Not sure' },
     ];
 
-    // ── AXIS 8 — Finish + Options ─────────────────────────────────────
+    // AXIS 8. Finish + Options
     const finishes = [
       { id: 'chrome',     label: 'Chrome' },
       { id: 'stainless',  label: 'Stainless Steel' },
       { id: 'galvanized', label: 'Galvanized' },
       { id: 'ss430',      label: 'SS430 / SS304' },
+      { id: 'other',      label: 'Other / Not sure' },
     ];
 
     const ledOptions = [
@@ -599,7 +594,7 @@ createApp({
       { id: 'next_gen',   label: 'Next Gen (2022+)' },
     ];
 
-    // ── AXIS 9 — Dimensions by family ─────────────────────────────────
+    // ── AXIS 9 . Dimensions by family ─────────────────────────────────
     const dimensionsByFamily = {
       visors_deflect:   [{ key: 'drop_height', label: 'Drop height', unit: '″', placeholder: 'e.g. 5, 8, 11, 12, 14' }],
       fenders_guards:   [
@@ -711,26 +706,16 @@ createApp({
     const canSubmit = computed(() =>
       form.customerName.trim() &&
       form.customerEmail.trim() &&
-      (form.partNumber.trim() || form.part_type)
+      form.part_family &&
+      form.part_type &&
+      form.brand &&
+      form.truck_zones.length > 0 &&
+      form.positions.length > 0 &&
+      form.finish.length > 0 &&
+      form.configuration.length > 0
     );
 
-    // Rail: Contact, Part#, Family/Type, Brand/Model, Spec, Finish
-    const railSteps = ['Contact', 'Part No.', 'Family', 'Brand', 'Spec', 'Finish'];
-    function railState(i) {
-      const done = [
-        !!(form.customerName && form.customerEmail),
-        !!(form.partNumber),
-        !!(form.part_family && form.part_type),
-        !!(form.brand),
-        !!(form.truck_zones.length || form.positions.length),
-        !!(form.finish.length || form.options.length),
-      ];
-      if (done[i]) return 'done';
-      for (let j = 0; j < i; j++) { if (!done[j]) return ''; }
-      return 'active';
-    }
-
-    // ── Handlers ───────────────────────────────────────────────────────
+    // Handlers
     function onFamilyChange() {
       form.part_type   = '';
       form.dimensions  = {};
@@ -758,14 +743,25 @@ createApp({
       else arr.splice(i, 1);
     }
 
-    // ── Submit ─────────────────────────────────────────────────────────
+    // Submit
     async function submitForm() {
       errorMsg.value = '';
       if (!form.customerName.trim() || !form.customerEmail.trim()) {
         errorMsg.value = 'Please fill in your name and email.'; return;
       }
-      if (!form.partNumber.trim() && !form.part_type) {
-        errorMsg.value = 'Please enter a part number or select at least a part type.'; return;
+
+      const missing = [];
+      if (!form.part_family)              missing.push('Part Family');
+      if (!form.part_type)                missing.push('Part Type');
+      if (!form.brand)                    missing.push('Brand');
+      if (!form.truck_zones.length)       missing.push('Zone');
+      if (!form.positions.length)         missing.push('Position');
+      if (!form.finish.length)            missing.push('Finish');
+      if (!form.configuration.length)     missing.push('Configuration');
+
+      if (missing.length) {
+        errorMsg.value = 'Please complete the required fields: ' + missing.join(', ') + '. If unsure, select "Other / Not sure".';
+        return;
       }
 
       // Build dimensions object (only filled keys)
@@ -795,7 +791,7 @@ createApp({
       sending.value = true;
       try {
         // ── REPLACE WITH YOUR n8n WEBHOOK URL ──
-        const WEBHOOK_URL = 'https://fabricioinj.app.n8n.cloud/webhook-test/a7f53161-7181-4dc4-8fae-c633f18e67c0';
+        const WEBHOOK_URL = 'https://YOUR-N8N-INSTANCE.app.n8n.cloud/webhook/metchro-part-request';
 
         const res = await fetch(WEBHOOK_URL, {
           method: 'POST',
@@ -805,10 +801,11 @@ createApp({
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-const data = await res.json();
-refNumber.value = data.tracking_id || 'MCR-UNKNOWN';
-submitted.value = true;
-        
+        const ts  = Date.now().toString(36).toUpperCase();
+        const rnd = Math.random().toString(36).substring(2,5).toUpperCase();
+        refNumber.value = `MCR-${ts}-${rnd}`;
+        submitted.value = true;
+
       } catch(err) {
         console.error(err);
         errorMsg.value = 'There was a problem sending your request. Please try again or contact us directly.';
@@ -836,7 +833,6 @@ submitted.value = true;
       finishes, ledOptions, cabStyles,
       availableTypes, availableModels, relevantDimensions, cabStyleRelevant,
       form, specChips, searchQuery, canSubmit,
-      railSteps, railState,
       onFamilyChange, onBrandChange, onModelSelect, removeModel, toggleArr,
       submitForm, resetForm,
       submitted, sending, errorMsg, refNumber,
