@@ -805,11 +805,10 @@ createApp({
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const ts  = Date.now().toString(36).toUpperCase();
-        const rnd = Math.random().toString(36).substring(2,5).toUpperCase();
-        refNumber.value = `MCR-${ts}-${rnd}`;
-        submitted.value = true;
-
+const data = await res.json();
+refNumber.value = data.tracking_id || 'MCR-UNKNOWN';
+submitted.value = true;
+        
       } catch(err) {
         console.error(err);
         errorMsg.value = 'There was a problem sending your request. Please try again or contact us directly.';
