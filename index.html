@@ -791,7 +791,8 @@ createApp({
       sending.value = true;
       try {
         // ── REPLACE WITH YOUR n8n WEBHOOK URL ──
-       const WEBHOOK_URL = 'https://fabricioinj.app.n8n.cloud/webhook-test/a7f53161-7181-4dc4-8fae-c633f18e67c0';
+        const WEBHOOK_URL = 'https://YOUR-N8N-INSTANCE.app.n8n.cloud/webhook/metchro-part-request';
+
         const res = await fetch(WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -800,9 +801,8 @@ createApp({
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const ts  = Date.now().toString(36).toUpperCase();
-        const rnd = Math.random().toString(36).substring(2,5).toUpperCase();
-        refNumber.value = `MCR-${ts}-${rnd}`;
+        const data = await res.json();
+        refNumber.value = data.tracking_id || 'MCR-UNKNOWN';
         submitted.value = true;
 
       } catch(err) {
