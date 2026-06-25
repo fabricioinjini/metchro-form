@@ -160,7 +160,6 @@
       </div>
       <h2>Request received</h2>
       <p>We'll find the Metchro equivalent and get back to you as soon as possible.</p>
-      <div class="success-ref">REF: {{ refNumber }}</div><br>
       <button class="btn-reset" @click="resetForm">Submit another request</button>
     </div>
 
@@ -802,7 +801,6 @@ createApp({
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const data = await res.json();
-        refNumber.value = data.tracking_id || 'MCR-UNKNOWN';
         submitted.value = true;
 
       } catch(err) {
