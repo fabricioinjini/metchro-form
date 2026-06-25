@@ -40,14 +40,12 @@
     h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 5px; }
     .subtitle { color: var(--steel-300); font-size: 13px; }
 
-    /* Card */
     .card { width: 100%; max-width: 720px; background: var(--steel-800); border: 1px solid var(--steel-600); border-radius: 10px; overflow: hidden; }
     .card-section { padding: 26px 30px; border-bottom: 1px solid var(--steel-700); }
     .card-section:last-child { border-bottom: none; }
     .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--steel-600); }
 
-    /* Fields */
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
     .field-row.single { grid-template-columns: 1fr; }
     .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
@@ -82,27 +80,23 @@
     textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-dim); }
     textarea::placeholder { color: var(--steel-400); }
 
-    /* Chip selectors */
     .chip-group { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
     .chip { padding: 5px 12px; border-radius: 20px; border: 1px solid var(--steel-500); background: transparent; color: var(--steel-200); font-size: 12px; cursor: pointer; transition: all var(--transition); white-space: nowrap; font-family: 'Inter', sans-serif; }
     .chip:hover { border-color: var(--steel-300); color: var(--white); }
     .chip.selected { background: var(--amber-dim); border-color: var(--amber); color: var(--amber-light); }
     .chip:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    /* Spec summary */
     .spec-summary { margin-top: 18px; background: var(--steel-700); border: 1px solid var(--steel-600); border-radius: var(--radius); padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 8px; min-height: 44px; align-items: center; }
     .spec-chip { background: var(--amber-dim); border: 1px solid rgba(232,160,32,0.3); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--amber-light); display: flex; align-items: center; gap: 5px; }
     .spec-chip .k { color: var(--steel-400); font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; }
     .spec-empty { color: var(--steel-400); font-size: 12px; font-style: italic; }
 
-    /* Dimension inputs */
     .dim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
     .dim-field { display: flex; flex-direction: column; gap: 5px; }
     .dim-input-wrap { position: relative; display: flex; align-items: center; }
     .dim-input-wrap input { padding-right: 36px; }
     .dim-unit { position: absolute; right: 10px; font-size: 11px; color: var(--steel-400); font-family: 'IBM Plex Mono', monospace; pointer-events: none; }
 
-    /* Submit */
     .submit-area { padding: 22px 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .submit-note { font-size: 12px; color: var(--steel-300); line-height: 1.5; }
     .btn-submit { background: var(--amber); color: var(--steel-900); border: none; border-radius: var(--radius); padding: 11px 26px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; white-space: nowrap; transition: background var(--transition), transform 0.1s; }
@@ -115,7 +109,6 @@
 
     .error-banner { background: rgba(232,80,80,0.1); border: 1px solid var(--red); border-radius: var(--radius); padding: 9px 16px; font-size: 12px; color: #f08080; margin: 0 30px 4px; }
 
-    /* Success */
     .success-card { width: 100%; max-width: 720px; background: var(--steel-800); border: 1px solid var(--green); border-radius: 10px; padding: 48px 40px; text-align: center; }
     .success-icon { width: 52px; height: 52px; background: rgba(62,201,122,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
     .success-card h2 { font-size: 21px; font-weight: 600; margin-bottom: 8px; }
@@ -124,7 +117,6 @@
     .btn-reset { margin-top: 18px; background: transparent; border: 1px solid var(--steel-500); color: var(--steel-200); border-radius: var(--radius); padding: 9px 22px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; transition: border-color var(--transition), color var(--transition); }
     .btn-reset:hover { border-color: var(--steel-300); color: var(--white); }
 
-    /* Helper */
     .helper-text { font-size: 11px; color: var(--steel-400); margin-top: 3px; }
 
     @media (max-width: 580px) {
@@ -152,6 +144,7 @@
       <h1>Part Request</h1>
       <p class="subtitle">Use the dropdowns below to describe the part as precisely as possible. Our team will match it to the Metchro catalogue and reply by email.</p>
     </div>
+
     <div v-if="submitted" class="success-card">
       <div class="success-icon">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
@@ -164,7 +157,6 @@
     </div>
 
     <template v-else>
-
       <div class="card">
 
         <!-- 01 Contact -->
@@ -196,7 +188,7 @@
           </div>
         </div>
 
-        <!-- 03 Part Family + Type (Axis 1 + 2) -->
+        <!-- 03 Part Family + Type -->
         <div class="card-section">
           <div class="section-label">03. Part Family &amp; Type</div>
           <div class="field-row">
@@ -241,7 +233,7 @@
           </div>
         </div>
 
-        <!-- 05 Zone + Position (Axis 5 + 6) -->
+        <!-- 05 Zone + Position -->
         <div class="card-section">
           <div class="section-label">05. Zone &amp; Position</div>
           <div class="field-row">
@@ -306,7 +298,6 @@
             </div>
           </div>
 
-          <!-- Cab style options . only show if relevant family selected -->
           <div class="field" style="margin-top:14px;" v-if="cabStyleRelevant">
             <label>Cab style <span class="opt">(if applicable)</span></label>
             <div class="chip-group">
@@ -319,7 +310,7 @@
           </div>
         </div>
 
-        <!-- 07 Dimensions (Axis 9) . shown only when family is selected -->
+        <!-- 07 Dimensions -->
         <div class="card-section" v-if="relevantDimensions.length">
           <div class="section-label">07. Dimensions <span style="color:var(--steel-400); font-size:9px; text-transform:none; letter-spacing:0; font-weight:400; margin-left:4px;">(optional)</span></div>
           <div class="dim-grid">
@@ -363,7 +354,7 @@
         <!-- Submit -->
         <div class="submit-area">
           <p class="submit-note">Our team reviews every request and responds within 1 business day.</p>
-          <div v-if="sending" class="sending"><div class="spinner"></div>Sending…</div>
+          <div v-if="sending" class="sending"><div class="spinner"></div>Sending&#8230;</div>
           <button v-else class="btn-submit" @click="submitForm" :disabled="!canSubmit">Send Request</button>
         </div>
 
@@ -374,12 +365,11 @@
 </div>
 
 <script>
-const { createApp, ref, computed, reactive, watch } = Vue;
+const { createApp, ref, computed, reactive } = Vue;
 
 createApp({
   setup() {
 
-    // ── AXIS 1 . Part families ─────────────────────────────────────────
     const families = [
       { id: 'body_panels',      label: 'Body & Panels',         count: '5,064' },
       { id: 'visors_deflect',   label: 'Deflectors & Visors',   count: '1,867' },
@@ -394,7 +384,6 @@ createApp({
       { id: 'other',            label: 'Other / Not sure',      count: ''       },
     ];
 
-    // ── AXIS 2 . Part types by family ─────────────────────────────────
     const typesByFamily = {
       body_panels: [
         { id: 'cab_panel',        label: 'Cab panel' },
@@ -428,35 +417,37 @@ createApp({
         { id: 'stack_shield',           label: 'Stack pipe shield' },
       ],
       lighting: [
-        { id: 'generic_light_bar',        label: 'Light bar (generic)' },
-        { id: 'bumper_light_bar',         label: 'Bumper light bar' },
-        { id: 'air_cleaner_light_bar',    label: 'Air cleaner light bar' },
-        { id: 'firewall_light_bar',       label: 'Firewall light bar' },
-        { id: 'mirror_light_bar',         label: 'Mirror light bar' },
-        { id: 'bezel',                    label: 'Light bezel' },
+        { id: 'generic_light_bar',     label: 'Light bar (generic)' },
+        { id: 'bumper_light_bar',      label: 'Bumper light bar' },
+        { id: 'air_cleaner_light_bar', label: 'Air cleaner light bar' },
+        { id: 'firewall_light_bar',    label: 'Firewall light bar' },
+        { id: 'mirror_light_bar',      label: 'Mirror light bar' },
+        { id: 'bezel',                 label: 'Light bezel' },
       ],
       bumpers_grilles: [
-        { id: 'bumper_light_bar',  label: 'Bumper light bar' },
-        { id: 'front_bumper',      label: 'Front bumper' },
-        { id: 'bumper_insert',     label: 'Bumper insert / trim' },
-        { id: 'front_grille',      label: 'Front grille' },
+        { id: 'bumper_light_bar', label: 'Bumper light bar' },
+        { id: 'front_bumper',     label: 'Front bumper' },
+        { id: 'bumper_insert',    label: 'Bumper insert / trim' },
+        { id: 'front_grille',     label: 'Front grille' },
       ],
+      // ── UPDATED: Full fender added between Half and Quarter ──────────
       fenders_guards: [
-        { id: 'half_fender',           label: 'Half fender' },
-        { id: 'front_fender_guard',    label: 'Front fender guard' },
-        { id: 'quarter_fender',        label: 'Quarter fender' },
-        { id: 'fender_trim',           label: 'Fender trim' },
-        { id: 'fender_mounting_kit',   label: 'Fender mounting kit' },
+        { id: 'half_fender',         label: 'Half fender' },
+        { id: 'full_fender',         label: 'Full fender' },
+        { id: 'quarter_fender',      label: 'Quarter fender' },
+        { id: 'front_fender_guard',  label: 'Front fender guard' },
+        { id: 'fender_trim',         label: 'Fender trim' },
+        { id: 'fender_mounting_kit', label: 'Fender mounting kit' },
       ],
       access_exterior: [
-        { id: 'mirror',          label: 'Mirror' },
-        { id: 'side_step',       label: 'Side step' },
-        { id: 'side_mount_arm',  label: 'Side mount arm kit' },
-        { id: 'door_handle',     label: 'Door handle trim' },
+        { id: 'mirror',         label: 'Mirror' },
+        { id: 'side_step',      label: 'Side step' },
+        { id: 'side_mount_arm', label: 'Side mount arm kit' },
+        { id: 'door_handle',    label: 'Door handle trim' },
       ],
       mud_flaps: [
-        { id: 'mud_flap_weight',  label: 'Mud flap weight' },
-        { id: 'mud_flap_hanger',  label: 'Mud flap hanger' },
+        { id: 'mud_flap_weight', label: 'Mud flap weight' },
+        { id: 'mud_flap_hanger', label: 'Mud flap hanger' },
       ],
       chassis_coupling: [
         { id: 'rear_frame_cover', label: 'Rear / center back panel' },
@@ -474,36 +465,33 @@ createApp({
         { id: 'other',      label: 'Other / Not sure' },
       ],
       other: [
-        { id: 'other',      label: 'Other / Not sure' },
+        { id: 'other', label: 'Other / Not sure' },
       ],
     };
 
-    // Inject "Other" into every family's part_type list
     Object.keys(typesByFamily).forEach(k => {
       if (k !== 'other' && !typesByFamily[k].some(t => t.id === 'other')) {
         typesByFamily[k].push({ id: 'other', label: 'Other / Not sure' });
       }
     });
 
-    // ── AXIS 3 . Brands ───────────────────────────────────────────────
     const brands = [
-      { id: 'peterbilt',     label: 'Peterbilt',       count: '4,022', digit: '1' },
-      { id: 'universal',     label: 'Universal',       count: '2,574', digit: '9' },
-      { id: 'kenworth',      label: 'Kenworth',        count: '1,641', digit: '2' },
-      { id: 'freightliner',  label: 'Freightliner',    count: '1,128', digit: '3' },
-      { id: 'international', label: 'International',   count: '1,051', digit: '4' },
-      { id: 'western_star',  label: 'Western Star',    count: '530',   digit: '5' },
-      { id: 'mack',          label: 'Mack',            count: '376',   digit: '6' },
-      { id: 'volvo',         label: 'Volvo',           count: '356',   digit: '7' },
-      { id: 'hino',          label: 'Hino',            count: '197',   digit: 'H' },
-      { id: 'caterpillar',   label: 'Caterpillar',     count: '60',    digit: '0' },
-      { id: 'isuzu',         label: 'Isuzu',           count: '27',    digit: 'U' },
-      { id: 'ford',          label: 'Ford',            count: '21',    digit: 'F' },
-      { id: 'autocar',       label: 'Autocar',         count: '17',    digit: 'A' },
-      { id: 'other',         label: 'Other / Not sure', count: '',     digit: '?' },
+      { id: 'peterbilt',     label: 'Peterbilt',        digit: '1' },
+      { id: 'universal',     label: 'Universal',        digit: '9' },
+      { id: 'kenworth',      label: 'Kenworth',         digit: '2' },
+      { id: 'freightliner',  label: 'Freightliner',     digit: '3' },
+      { id: 'international', label: 'International',    digit: '4' },
+      { id: 'western_star',  label: 'Western Star',     digit: '5' },
+      { id: 'mack',          label: 'Mack',             digit: '6' },
+      { id: 'volvo',         label: 'Volvo',            digit: '7' },
+      { id: 'hino',          label: 'Hino',             digit: 'H' },
+      { id: 'caterpillar',   label: 'Caterpillar',      digit: '0' },
+      { id: 'isuzu',         label: 'Isuzu',            digit: 'U' },
+      { id: 'ford',          label: 'Ford',             digit: 'F' },
+      { id: 'autocar',       label: 'Autocar',          digit: 'A' },
+      { id: 'other',         label: 'Other / Not sure', digit: '?' },
     ];
 
-    // ── AXIS 4 . Models by brand ──────────────────────────────────────
     const modelsByBrand = {
       peterbilt:    ['389','388','567','379','579','378','386','367','365','W990','587','Ultracab','Ultraloft'],
       kenworth:     ['T800','W900','W900L','T680','W900B','T880','T660','T370','T300','W990','T270','T600','T170','T470','T440','T400','T880S','T800W','T2000'],
@@ -521,40 +509,36 @@ createApp({
       other:        [],
     };
 
-    // Inject "Other" model option to each brand's model list
     Object.keys(modelsByBrand).forEach(b => {
       if (modelsByBrand[b].length && !modelsByBrand[b].includes('Other / Not sure')) {
         modelsByBrand[b].push('Other / Not sure');
       }
     });
 
-    // ── AXIS 5 . Zones ────────────────────────────────────────────────
     const zones = [
-      { id: 'bumper_zone',          label: 'Bumper' },
-      { id: 'hood_fender_zone',     label: 'Hood / Fender' },
-      { id: 'cab_zone',             label: 'Cab' },
-      { id: 'sleeper_zone',         label: 'Sleeper' },
+      { id: 'bumper_zone',            label: 'Bumper' },
+      { id: 'hood_fender_zone',       label: 'Hood / Fender' },
+      { id: 'cab_zone',               label: 'Cab' },
+      { id: 'sleeper_zone',           label: 'Sleeper' },
       { id: 'fairing_kickplate_zone', label: 'Fairing / Kick plate' },
-      { id: 'rear_zone',            label: 'Rear' },
-      { id: 'firewall',             label: 'Firewall' },
-      { id: 'door',                 label: 'Door' },
-      { id: 'other',                label: 'Other / Not sure' },
+      { id: 'rear_zone',              label: 'Rear' },
+      { id: 'firewall',               label: 'Firewall' },
+      { id: 'door',                   label: 'Door' },
+      { id: 'other',                  label: 'Other / Not sure' },
     ];
 
-    // AXIS 6. Positions
     const positions = [
-      { id: 'side',       label: 'Side' },
-      { id: 'extension',  label: 'Extension' },
-      { id: 'front',      label: 'Front' },
-      { id: 'rear',       label: 'Rear' },
-      { id: 'upper',      label: 'Upper' },
-      { id: 'lower',      label: 'Lower' },
-      { id: 'center',     label: 'Center' },
-      { id: 'inset',      label: 'Inset' },
-      { id: 'other',      label: 'Other / Not sure' },
+      { id: 'side',      label: 'Side' },
+      { id: 'extension', label: 'Extension' },
+      { id: 'front',     label: 'Front' },
+      { id: 'rear',      label: 'Rear' },
+      { id: 'upper',     label: 'Upper' },
+      { id: 'lower',     label: 'Lower' },
+      { id: 'center',    label: 'Center' },
+      { id: 'inset',     label: 'Inset' },
+      { id: 'other',     label: 'Other / Not sure' },
     ];
 
-    // AXIS 7. Configuration
     const configurations = [
       { id: 'kit',         label: 'Kit / Set' },
       { id: 'extension',   label: 'Extension' },
@@ -567,7 +551,6 @@ createApp({
       { id: 'other',       label: 'Other / Not sure' },
     ];
 
-    // AXIS 8. Finish + Options
     const finishes = [
       { id: 'chrome',     label: 'Chrome' },
       { id: 'stainless',  label: 'Stainless Steel' },
@@ -586,56 +569,45 @@ createApp({
     ];
 
     const cabStyles = [
-      { id: 'high_roof',  label: 'High roof' },
-      { id: 'low_roof',   label: 'Low roof / Day cab' },
-      { id: 'flat_top',   label: 'Flat top' },
-      { id: 'sba',        label: 'Set-back axle (SBA)' },
-      { id: 'next_gen',   label: 'Next Gen (2022+)' },
+      { id: 'high_roof', label: 'High roof' },
+      { id: 'low_roof',  label: 'Low roof / Day cab' },
+      { id: 'flat_top',  label: 'Flat top' },
+      { id: 'sba',       label: 'Set-back axle (SBA)' },
+      { id: 'next_gen',  label: 'Next Gen (2022+)' },
     ];
 
-    // ── AXIS 9 . Dimensions by family ─────────────────────────────────
     const dimensionsByFamily = {
-      visors_deflect:   [{ key: 'drop_height', label: 'Drop height', unit: '″', placeholder: 'e.g. 5, 8, 11, 12, 14' }],
+      visors_deflect:   [{ key: 'drop_height', label: 'Drop height', unit: '&#34;', placeholder: 'e.g. 5, 8, 11, 12, 14' }],
       fenders_guards:   [
-        { key: 'length_in', label: 'Length', unit: '″', placeholder: 'e.g. 48, 60, 72, 94' },
-        { key: 'gauge_ga',  label: 'Gauge',  unit: 'GA', placeholder: 'e.g. 14, 16, 18, 20' },
+        { key: 'length_in', label: 'Length', unit: '&#34;', placeholder: 'e.g. 48, 60, 72, 94' },
+        { key: 'gauge_ga',  label: 'Gauge',  unit: 'GA',    placeholder: 'e.g. 14, 16, 18, 20' },
       ],
-      body_panels:      [
-        { key: 'bbc',       label: 'BBC (bumper-to-back-of-cab)', unit: '″', placeholder: 'e.g. 76, 80, 116, 122' },
-        { key: 'width_in',  label: 'Width', unit: '″', placeholder: 'e.g. 1.5, 2, 3, 5' },
+      body_panels: [
+        { key: 'bbc',      label: 'BBC (bumper-to-back-of-cab)', unit: '&#34;', placeholder: 'e.g. 76, 80, 116, 122' },
+        { key: 'width_in', label: 'Width', unit: '&#34;', placeholder: 'e.g. 1.5, 2, 3, 5' },
       ],
-      mud_flaps:        [{ key: 'length_in', label: 'Length', unit: '″', placeholder: 'e.g. 48, 60, 72' }],
+      mud_flaps:        [{ key: 'length_in', label: 'Length', unit: '&#34;', placeholder: 'e.g. 48, 60, 72' }],
       chassis_coupling: [
-        { key: 'length_in', label: 'Length', unit: '″', placeholder: 'e.g. 54, 66' },
-        { key: 'gauge_ga',  label: 'Gauge',  unit: 'GA', placeholder: 'e.g. 11, 14, 16' },
+        { key: 'length_in', label: 'Length', unit: '&#34;', placeholder: 'e.g. 54, 66' },
+        { key: 'gauge_ga',  label: 'Gauge',  unit: 'GA',    placeholder: 'e.g. 11, 14, 16' },
       ],
-      lighting:         [
-        { key: 'hole_count', label: 'Light hole count', unit: '', placeholder: 'e.g. 2, 3, 4, 8, 18' },
-        { key: 'hole_size',  label: 'Light hole size', unit: '″', placeholder: 'e.g. 4 round, 4.5 oval' },
+      lighting: [
+        { key: 'hole_count', label: 'Light hole count', unit: '',      placeholder: 'e.g. 2, 3, 4, 8, 18' },
+        { key: 'hole_size',  label: 'Light hole size',  unit: '&#34;', placeholder: 'e.g. 4 round, 4.5 oval' },
       ],
-      bumpers_grilles:  [
-        { key: 'hole_count', label: 'Light hole count', unit: '', placeholder: 'e.g. 1, 2, 4, 16' },
-        { key: 'width_in',   label: 'Width', unit: '″', placeholder: 'e.g. 1.06, 1.25, 2' },
+      bumpers_grilles: [
+        { key: 'hole_count', label: 'Light hole count', unit: '',      placeholder: 'e.g. 1, 2, 4, 16' },
+        { key: 'width_in',   label: 'Width',            unit: '&#34;', placeholder: 'e.g. 1.06, 1.25, 2' },
       ],
     };
 
-    // ── Form state ─────────────────────────────────────────────────────
     const form = reactive({
-      customerName:       '',
-      customerEmail:      '',
-      partNumber:         '',
-      part_family:        '',
-      part_type:          '',
-      brand:              '',
-      truck_models:       [],
-      truck_models_single:'',
-      truck_zones:        [],
-      positions:          [],
-      finish:             [],
-      options:            [],
-      configuration:      [],
-      dimensions:         {},
-      notes:              '',
+      customerName: '', customerEmail: '', partNumber: '',
+      part_family: '', part_type: '',
+      brand: '', truck_models: [], truck_models_single: '',
+      truck_zones: [], positions: [],
+      finish: [], options: [], configuration: [],
+      dimensions: {}, notes: '',
     });
 
     const submitted = ref(false);
@@ -643,166 +615,109 @@ createApp({
     const errorMsg  = ref('');
     const refNumber = ref('');
 
-    // ── Computed ───────────────────────────────────────────────────────
-    const availableTypes = computed(() => typesByFamily[form.part_family] || []);
-    const availableModels = computed(() => modelsByBrand[form.brand] || []);
-    const relevantDimensions = computed(() => dimensionsByFamily[form.part_family] || []);
-    const cabStyleRelevant = computed(() =>
-      ['body_panels','visors_deflect'].includes(form.part_family)
-    );
+    const availableTypes      = computed(() => typesByFamily[form.part_family] || []);
+    const availableModels     = computed(() => modelsByBrand[form.brand] || []);
+    const relevantDimensions  = computed(() => dimensionsByFamily[form.part_family] || []);
+    const cabStyleRelevant    = computed(() => ['body_panels','visors_deflect'].includes(form.part_family));
 
     const specChips = computed(() => {
       const c = [];
-      if (form.part_family) {
-        const f = families.find(x => x.id === form.part_family);
-        if (f) c.push({ key: 'Family', value: f.label });
-      }
-      if (form.part_type) {
-        const t = availableTypes.value.find(x => x.id === form.part_type);
-        if (t) c.push({ key: 'Type', value: t.label });
-      }
-      if (form.brand) {
-        const b = brands.find(x => x.id === form.brand);
-        if (b) c.push({ key: 'Brand', value: b.label });
-      }
-      if (form.truck_models.length)    c.push({ key: 'Model', value: form.truck_models.join(' / ') });
-      if (form.truck_zones.length)     c.push({ key: 'Zone', value: form.truck_zones.map(z => zones.find(x=>x.id===z)?.label).join(' + ') });
-      if (form.positions.length)       c.push({ key: 'Pos', value: form.positions.map(p => positions.find(x=>x.id===p)?.label).join(' + ') });
-      if (form.finish.length)          c.push({ key: 'Finish', value: form.finish.map(f => finishes.find(x=>x.id===f)?.label).join(' / ') });
+      if (form.part_family) { const f = families.find(x=>x.id===form.part_family); if (f) c.push({ key:'Family', value:f.label }); }
+      if (form.part_type)   { const t = availableTypes.value.find(x=>x.id===form.part_type); if (t) c.push({ key:'Type', value:t.label }); }
+      if (form.brand)       { const b = brands.find(x=>x.id===form.brand); if (b) c.push({ key:'Brand', value:b.label }); }
+      if (form.truck_models.length)  c.push({ key:'Model',  value: form.truck_models.join(' / ') });
+      if (form.truck_zones.length)   c.push({ key:'Zone',   value: form.truck_zones.map(z=>zones.find(x=>x.id===z)?.label).join(' + ') });
+      if (form.positions.length)     c.push({ key:'Pos',    value: form.positions.map(p=>positions.find(x=>x.id===p)?.label).join(' + ') });
+      if (form.finish.length)        c.push({ key:'Finish', value: form.finish.map(f=>finishes.find(x=>x.id===f)?.label).join(' / ') });
       if (form.options.length) {
         const allOpts = [...ledOptions, ...cabStyles];
-        c.push({ key: 'Options', value: form.options.map(o => allOpts.find(x=>x.id===o)?.label).filter(Boolean).join(' + ') });
+        c.push({ key:'Options', value: form.options.map(o=>allOpts.find(x=>x.id===o)?.label).filter(Boolean).join(' + ') });
       }
-      if (form.configuration.length)   c.push({ key: 'Config', value: form.configuration.map(cf => configurations.find(x=>x.id===cf)?.label).join(' + ') });
+      if (form.configuration.length) c.push({ key:'Config', value: form.configuration.map(cf=>configurations.find(x=>x.id===cf)?.label).join(' + ') });
       Object.entries(form.dimensions).forEach(([k,v]) => {
-        if (v) {
-          const d = relevantDimensions.value.find(x=>x.key===k);
-          c.push({ key: d?.label || k, value: v + (d?.unit ? ' '+d.unit : '') });
-        }
+        if (v) { const d=relevantDimensions.value.find(x=>x.key===k); c.push({ key:d?.label||k, value:v+(d?.unit?' '+d.unit:'') }); }
       });
       return c;
     });
 
-    // Assemble the search_query string the same way n8n would
     const searchQuery = computed(() => {
       const parts = [];
-      if (form.brand) {
-        const b = brands.find(x => x.id === form.brand);
-        if (b) parts.push(b.label.toLowerCase());
-      }
-      if (form.truck_models.length) parts.push(...form.truck_models.map(m => m.toLowerCase()));
-      if (form.positions.length)    parts.push(...form.positions);
-      if (form.part_type) parts.push(form.part_type);
+      if (form.brand) { const b=brands.find(x=>x.id===form.brand); if (b) parts.push(b.label.toLowerCase()); }
+      if (form.truck_models.length)  parts.push(...form.truck_models.map(m=>m.toLowerCase()));
+      if (form.positions.length)     parts.push(...form.positions);
+      if (form.part_type)            parts.push(form.part_type);
       if (form.configuration.length) parts.push(...form.configuration);
       if (form.finish.includes('stainless')) parts.push('stainless');
       if (form.finish.includes('chrome'))    parts.push('chrome');
-      if (form.options.some(o => o.startsWith('led'))) parts.push('led');
-      Object.entries(form.dimensions).forEach(([, v]) => { if (v) parts.push(v); });
-      if (form.notes.trim()) parts.push(form.notes.trim().substring(0, 60));
+      if (form.options.some(o=>o.startsWith('led'))) parts.push('led');
+      Object.entries(form.dimensions).forEach(([,v])=>{ if (v) parts.push(v); });
+      if (form.notes.trim()) parts.push(form.notes.trim().substring(0,60));
       return parts.filter(Boolean).join(' ');
     });
 
     const canSubmit = computed(() =>
-      form.customerName.trim() &&
-      form.customerEmail.trim() &&
-      form.part_family &&
-      form.part_type &&
-      form.brand &&
-      form.truck_zones.length > 0 &&
-      form.positions.length > 0 &&
-      form.finish.length > 0 &&
-      form.configuration.length > 0
+      form.customerName.trim() && form.customerEmail.trim() &&
+      form.part_family && form.part_type && form.brand &&
+      form.truck_zones.length > 0 && form.positions.length > 0 &&
+      form.finish.length > 0 && form.configuration.length > 0
     );
 
-    // Handlers
-    function onFamilyChange() {
-      form.part_type   = '';
-      form.dimensions  = {};
-    }
-
-    function onBrandChange() {
-      form.truck_models        = [];
-      form.truck_models_single = '';
-    }
-
+    function onFamilyChange() { form.part_type = ''; form.dimensions = {}; }
+    function onBrandChange()  { form.truck_models = []; form.truck_models_single = ''; }
     function onModelSelect() {
-      if (form.truck_models_single && !form.truck_models.includes(form.truck_models_single)) {
+      if (form.truck_models_single && !form.truck_models.includes(form.truck_models_single))
         form.truck_models.push(form.truck_models_single);
-      }
       form.truck_models_single = '';
     }
-
-    function removeModel(m) {
-      form.truck_models = form.truck_models.filter(x => x !== m);
-    }
-
+    function removeModel(m) { form.truck_models = form.truck_models.filter(x=>x!==m); }
     function toggleArr(arr, val) {
       const i = arr.indexOf(val);
-      if (i === -1) arr.push(val);
-      else arr.splice(i, 1);
+      if (i === -1) arr.push(val); else arr.splice(i, 1);
     }
 
-    // Submit
     async function submitForm() {
       errorMsg.value = '';
       if (!form.customerName.trim() || !form.customerEmail.trim()) {
         errorMsg.value = 'Please fill in your name and email.'; return;
       }
-
       const missing = [];
-      if (!form.part_family)              missing.push('Part Family');
-      if (!form.part_type)                missing.push('Part Type');
-      if (!form.brand)                    missing.push('Brand');
-      if (!form.truck_zones.length)       missing.push('Zone');
-      if (!form.positions.length)         missing.push('Position');
-      if (!form.finish.length)            missing.push('Finish');
-      if (!form.configuration.length)     missing.push('Configuration');
-
+      if (!form.part_family)          missing.push('Part Family');
+      if (!form.part_type)            missing.push('Part Type');
+      if (!form.brand)                missing.push('Brand');
+      if (!form.truck_zones.length)   missing.push('Zone');
+      if (!form.positions.length)     missing.push('Position');
+      if (!form.finish.length)        missing.push('Finish');
+      if (!form.configuration.length) missing.push('Configuration');
       if (missing.length) {
         errorMsg.value = 'Please complete the required fields: ' + missing.join(', ') + '. If unsure, select "Other / Not sure".';
         return;
       }
-
-      // Build dimensions object (only filled keys)
       const dims = {};
-      Object.entries(form.dimensions).forEach(([k, v]) => { if (v) dims[k] = v; });
-
+      Object.entries(form.dimensions).forEach(([k,v])=>{ if (v) dims[k]=v; });
       const payload = {
-        // Customer info
-        customer_name:   form.customerName.trim(),
-        customer_email:  form.customerEmail.trim(),
-        part_number:     form.partNumber.trim() || null,
-        // Structured axes (exact webhook dict format)
-        part_family:     form.part_family     || null,
-        part_type:       form.part_type       || null,
-        brand:           form.brand           || null,
-        truck_models:    form.truck_models.length   ? form.truck_models   : null,
-        truck_zones:     form.truck_zones.length    ? form.truck_zones    : null,
-        positions:       form.positions.length      ? form.positions      : null,
-        finish:          form.finish.length         ? form.finish         : null,
-        options:         form.options.length        ? form.options        : null,
-        configuration:   form.configuration.length  ? form.configuration  : null,
-        dimensions:      Object.keys(dims).length   ? dims                : null,
-        search_query:    searchQuery.value || null,
-        notes:           form.notes.trim()  || null,
+        customer_name:  form.customerName.trim(),
+        customer_email: form.customerEmail.trim(),
+        part_number:    form.partNumber.trim() || null,
+        part_family:    form.part_family  || null,
+        part_type:      form.part_type    || null,
+        brand:          form.brand        || null,
+        truck_models:   form.truck_models.length   ? form.truck_models   : null,
+        truck_zones:    form.truck_zones.length    ? form.truck_zones    : null,
+        positions:      form.positions.length      ? form.positions      : null,
+        finish:         form.finish.length         ? form.finish         : null,
+        options:        form.options.length        ? form.options        : null,
+        configuration:  form.configuration.length  ? form.configuration  : null,
+        dimensions:     Object.keys(dims).length   ? dims                : null,
+        search_query:   searchQuery.value || null,
+        notes:          form.notes.trim() || null,
       };
-
       sending.value = true;
       try {
-        // ── REPLACE WITH YOUR n8n WEBHOOK URL ──
         const WEBHOOK_URL = 'https://fabricioinj.app.n8n.cloud/webhook-test/a7f53161-7181-4dc4-8fae-c633f18e67c0';
-
-        const res = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
+        const res = await fetch(WEBHOOK_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const data = await res.json();
+        await res.json();
         submitted.value = true;
-
       } catch(err) {
         console.error(err);
         errorMsg.value = 'There was a problem sending your request. Please try again or contact us directly.';
@@ -826,8 +741,7 @@ createApp({
     }
 
     return {
-      families, brands, zones, positions, configurations,
-      finishes, ledOptions, cabStyles,
+      families, brands, zones, positions, configurations, finishes, ledOptions, cabStyles,
       availableTypes, availableModels, relevantDimensions, cabStyleRelevant,
       form, specChips, searchQuery, canSubmit,
       onFamilyChange, onBrandChange, onModelSelect, removeModel, toggleArr,
